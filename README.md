@@ -50,7 +50,7 @@ api = Client()
 
 print(api.generate_token())
 print(api.user_info(screenname="Twitter")) #print(api.user_info(userid="783214"))
-print(api.user_tweets(screenname="Twitter")) #print(api.user_info(userid="783214"))
+print(api.user_tweets(screenname="Twitter")) #print(api.user_tweets(userid="783214"))
 print(api.trend())
 print(api.searchbox("Text"))
 print(api.topic_search("Text"))
