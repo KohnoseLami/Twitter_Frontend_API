@@ -3,7 +3,7 @@
 Get information using a front-end API that does not require a Twitter site login.
 
 ![Python 3.8](https://img.shields.io/badge/-Python%203.8-3776AB.svg?logo=python&style=plastic)
-[![Release](https://img.shields.io/badge/-Release%200.1.2-00979D.svg?logo=release&style=plastic)](https://github.com/KohnoseLami/Twitter_Frontend_API/releases)
+[![Release](https://img.shields.io/badge/-Release%200.1.3-00979D.svg?logo=release&style=plastic)](https://github.com/KohnoseLami/Twitter_Frontend_API/releases)
 
 ## Overview
 
