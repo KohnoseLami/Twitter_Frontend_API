@@ -38,7 +38,7 @@ To update:
 
 ``pip install Twitter_Frontend_API --upgrade``
 
-Tested on Python 3.8.
+Tested on Python 3.9.0
 
 ## Usage
 
@@ -59,6 +59,56 @@ print(api.image_search("Text"))
 print(api.video_search("Text"))
 print(api.user_search("Text"))
 print(api.screenname_available("Screenname"))
+```
+
+```python
+from Twitter_Frontend_API import API
+
+api = API(auth)
+
+print(api.update_status("Text"))
+print(api.update_status("Text", conversation_control=2, in_reply_to_status_id="1335886771968741377", card_uri="card://1338528317587124224"))
+print(api.destroy_status("1335886771968741377"))
+print(api.create_favorite("1335886771968741377"))
+print(api.destroy_favorite("1335886771968741377"))
+print(api.retweet("1335886771968741377"))
+print(api.unretweet("1335886771968741377"))
+print(api.create_friendship(screen_name="Twitter")) #print(api.create_friendship(user_id="783214"))
+print(api.destroy_friendship(screen_name="Twitter")) #print(api.destroy_friendship(user_id="783214"))
+print(api.notifications())
+print(api.pin_tweet("1335886771968741377"))
+print(api.change_id("Screen_name"))
+print(api.topic_follow("847896929698668544"))
+print(api.topic_unfollow("847896929698668544"))
+print(api.followed_topics("1323603354165993472"))
+print(api.not_interested_topics())
+print(api.recommendations())
+print(api.lists_all("1323603354165993472"))
+print(api.create_list("ListName", private="False", description=""))
+print(api.destroy_list("1337433856673075206"))
+print(api.update_list("1326095394959360001", name="NameList", private="True", description="Text"))
+print(api.add_list_member("1326095394959360001", "1323603354165993472"))
+print(api.remove_list_member("1326095394959360001", "1323603354165993472"))
+print(api.list_members("1326095394959360001"))
+print(api.create_card(4, "5", one="Hello", two="World", three="!", four="byPython")
+print(api.Twitter_Web_Client("Text", place_id="fc6282dff859b848", authenticity_token=None))
+print(api.add_bookmark("1335886771968741377"))
+print(api.mute_conversation("1335886771968741377"))
+print(api.unmute_conversation("1335886771968741377"))
+print(api.verify_password("password"))
+print(api.account_data(verify=None, password="password"))
+print(api.private("true"))
+print(api.gender("male"))
+print(api.protect_password_reset("password", protect="true"))
+print(api.session_revoke("KRJlliMG5b61wbuY4f70nk6TylRkYPJaMmCLT5eiQe8="))
+print(api.sessions_revoke_all())
+print(api.allow_media_tagging("all"))
+print(api.nsfw("true"))
+print(api.geo_enabled("true"))
+print(api.geo_delete())
+print(api.display_sensitive_media("true"))
+print(api.twitter_interests())
+print(api.set_explore("true"))
 ```
 
 ## Donate

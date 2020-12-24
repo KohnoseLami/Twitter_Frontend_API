@@ -4,7 +4,7 @@ with open('requirements.txt') as requirements:
 
 setup(
     name='Twitter_Frontend_API',
-    version='0.1.3',
+    version='1.0.4',
     description='Get information from Twitter using the front-end API built into the Twitter website.',
     url='https://github.com/KohnoseLami/Twitter_Frontend_API',
     author='神瀬来未',
@@ -17,6 +17,6 @@ setup(
     install_requires=required,
     classifiers=[
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
 )
