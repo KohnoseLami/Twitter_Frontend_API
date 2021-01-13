@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import json
 from fake_useragent import UserAgent
@@ -5,12 +6,12 @@ from bs4 import BeautifulSoup
 
 ua = UserAgent()
 
-###ó·äOÉNÉâÉX###
+###‰æãÂ§ñ„ÇØ„É©„Çπ###
 class TwitterError(Exception):
     pass
 
 
-###ÉçÉOÉCÉìñ≥ÇµèÓïÒéÊìæ###
+###„É≠„Ç∞„Ç§„É≥ÁÑ°„ÅóÊÉÖÂ†±ÂèñÂæó###
 
 class Client:
     headers = {
@@ -24,6 +25,19 @@ class Client:
         'x-guest-token': guest_token,
         'User-Agent': ua.ie
     }
+
+    def generate_ct0(self):
+        response = requests.get('https://twitter.com/i/release_notes')
+        ct0 = response.cookies.get_dict()["ct0"]
+
+        return ct0
+
+    def generate_authenticity(self):
+        response = requests.get('https://twitter.com/account/begin_password_reset')
+        soup = BeautifulSoup(response.text, "lxml")
+        authenticity_token = soup.find(attrs={'name':'authenticity_token'}).get('value')
+
+        return authenticity_token
 
     def generate_token(self):
         headers = {
@@ -130,12 +144,141 @@ class Client:
 
         return response
 
-    def tweet_info(self, tweetid):
+    def get_status(self, tweetid):
         response = requests.get('https://api.twitter.com/2/timeline/conversation/' + tweetid + '.json', headers=self.headers).json()
 
         return response
 
-###ÉçÉOÉCÉìÇ†ÇËÉAÉJÉEÉìÉgëÄçÏ###
+    def shadowban_check(self, screen_name=None, user_id=None):
+        if not screen_name == None:
+            no_tweet = False
+            protect = False
+
+            suspend = False
+            not_found = False
+
+            search_ban = False
+            search_suggestion_ban = False
+            ghost_ban = False
+            reply_deboosting = False
+
+            adaptive = requests.get("https://api.twitter.com/2/search/adaptive.json?q=from:" + screen_name + "&count=20&spelling_corrections=0", headers=self.headers)
+            typeahead = requests.get("https://api.twitter.com/1.1/search/typeahead.json?src=search_box&result_type=users&q=" + screen_name, headers=self.headers)
+            show = requests.get("https://api.twitter.com/1.1/users/show.json?screen_name=" + screen_name, headers=self.headers)
+
+            if "errors" in show.json():
+                if show.json()["errors"][0]["code"] == 63:
+                    suspend = True
+                elif show.json()["errors"][0]["code"] == 50:
+                    not_found = True
+
+            else:
+                if show.json()["protected"] == False:
+                    if "status" in show.json():
+                        profile = requests.get("https://api.twitter.com/2/timeline/profile/" + str(show.json()["id"]) +".json?include_tweet_replies=1&include_want_retweets=0&include_reply_count=1&count=1000", headers=self.headers)
+
+                        if adaptive.json()['globalObjects']['tweets']:
+                            pass
+                        else:
+                            search_ban = True
+
+                        if typeahead.json()["num_results"] == 0:
+                            search_suggestion_ban = True
+
+                        for i in profile.json()["globalObjects"]["tweets"]:
+                            for _ in profile.json()["globalObjects"]["tweets"][i]:
+                                if _ == "in_reply_to_status_id_str":
+                                    conversation = requests.get("https://api.twitter.com/2/timeline/conversation/" + str(profile.json()["globalObjects"]["tweets"][i]["in_reply_to_status_id_str"]) + ".json?include_reply_count=1&send_error_codes=true&count=20", headers=self.headers)
+                                    if conversation.status_code == 404:
+                                        ghost_ban = True
+                                        reply_deboosting = True
+                                    else:
+                                        deboosting_l = []
+                                        for i in conversation.json()["globalObjects"]["tweets"]:
+                                            deboosting_l.append(conversation.json()["globalObjects"]["tweets"][i]["user_id_str"])
+                                        if str(show.json()["id"]) in deboosting_l:
+                                            pass
+                                        else:
+                                            reply_deboosting = True
+                                    break
+                            else:
+                                continue
+                            break
+
+                    else:
+                        no_tweet = True
+                else:
+                    protect = True
+
+        elif not user_id == None:
+
+            screen_name = requests.get('https://api.twitter.com/1.1/users/show.json?user_id=' + user_id, headers=self.headers).json()["screen_name"]
+
+            no_tweet = False
+            protect = False
+
+            suspend = False
+            not_found = False
+
+            search_ban = False
+            search_suggestion_ban = False
+            ghost_ban = False
+            reply_deboosting = False
+
+            adaptive = requests.get("https://api.twitter.com/2/search/adaptive.json?q=from:" + screen_name + "&count=20&spelling_corrections=0", headers=self.headers)
+            typeahead = requests.get("https://api.twitter.com/1.1/search/typeahead.json?src=search_box&result_type=users&q=" + screen_name, headers=self.headers)
+            show = requests.get("https://api.twitter.com/1.1/users/show.json?screen_name=" + screen_name, headers=self.headers)
+
+            if "errors" in show.json():
+                if show.json()["errors"][0]["code"] == 63:
+                    suspend = True
+                elif show.json()["errors"][0]["code"] == 50:
+                    not_found = True
+
+            else:
+                if show.json()["protected"] == False:
+                    if "status" in show.json():
+                        profile = requests.get("https://api.twitter.com/2/timeline/profile/" + str(show.json()["id"]) +".json?include_tweet_replies=1&include_want_retweets=0&include_reply_count=1&count=1000", headers=self.headers)
+
+                        if adaptive.json()['globalObjects']['tweets']:
+                            pass
+                        else:
+                            search_ban = True
+
+                        if typeahead.json()["num_results"] == 0:
+                            search_suggestion_ban = True
+
+                        for i in profile.json()["globalObjects"]["tweets"]:
+                            for _ in profile.json()["globalObjects"]["tweets"][i]:
+                                if _ == "in_reply_to_status_id_str":
+                                    conversation = requests.get("https://api.twitter.com/2/timeline/conversation/" + str(profile.json()["globalObjects"]["tweets"][i]["in_reply_to_status_id_str"]) + ".json?include_reply_count=1&send_error_codes=true&count=20", headers=self.headers)
+                                    if conversation.status_code == 404:
+                                        ghost_ban = True
+                                        reply_deboosting = True
+                                    else:
+                                        deboosting_l = []
+                                        for i in conversation.json()["globalObjects"]["tweets"]:
+                                            deboosting_l.append(conversation.json()["globalObjects"]["tweets"][i]["user_id_str"])
+                                        if str(show.json()["id"]) in deboosting_l:
+                                            pass
+                                        else:
+                                            reply_deboosting = True
+                                    break
+                            else:
+                                continue
+                            break
+
+                    else:
+                        no_tweet = True
+                else:
+                    protect = True
+
+        else:
+            raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
+
+        return {'no_tweet':no_tweet, 'protect':protect, 'suspend':suspend, 'not_found':not_found, 'search_ban':search_ban, 'search_suggestion_ban':search_suggestion_ban, 'ghost_ban':ghost_ban, 'reply_deboosting':reply_deboosting}
+
+###„É≠„Ç∞„Ç§„É≥„ÅÇ„Çä„Ç¢„Ç´„Ç¶„É≥„ÉàÊìç‰Ωú###
 
 class API(object):
     def __init__(self, auth):
@@ -164,7 +307,7 @@ class API(object):
         response = requests.get('https://twitter.com/account/begin_password_reset')
         soup = BeautifulSoup(response.text, "lxml")
         authenticity = soup.find(attrs={'name':'authenticity_token'}).get('value')
-    
+
         headers = {
             'cookie': '_mb_tk=' + authenticity,
             'User-Agent': ua.ie
@@ -181,11 +324,135 @@ class API(object):
         response = requests.post('https://twitter.com/sessions', headers=headers, data=data, allow_redirects=False)
         print(BeautifulSoup(response.text, "html.parser"))
         auth_token = response.cookies.get_dict()["auth_token"]
-    
+
         response = requests.get('https://twitter.com/i/release_notes')
         ct0 = response.cookies.get_dict()["ct0"]
-    
+
         return {'auth_token':auth_token, 'ct0':ct0}
+
+    def generate_ct0(self):
+        response = requests.get('https://twitter.com/i/release_notes')
+        ct0 = response.cookies.get_dict()["ct0"]
+
+        return ct0
+
+    def generate_authenticity(self):
+        response = requests.get('https://twitter.com/account/begin_password_reset')
+        soup = BeautifulSoup(response.text, "lxml")
+        authenticity_token = soup.find(attrs={'name':'authenticity_token'}).get('value')
+
+        return authenticity_token
+
+    def generate_token(self):
+        headers = {
+            'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+            'User-Agent': ua.ie
+        }
+        response = requests.post('https://api.twitter.com/1.1/guest/activate.json', headers=headers).json()
+
+        return response
+
+    def user_info(self, screen_name=None, user_id=None):
+        if screen_name == None:
+            if user_id == None:
+                raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
+            else:
+                response = requests.get('https://api.twitter.com/1.1/users/show.json?user_id=' + user_id, headers=self.headers).json()
+        else:
+            response = requests.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name, headers=self.headers).json()
+
+        return response
+
+    def user_tweets(self, screen_name=None, user_id=None):
+        params = (
+            ('userId', user_id),
+        )
+        if screen_name == None:
+            if user_id == None:
+                raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
+            else:
+                response = requests.get('https://api.twitter.com/2/timeline/profile/' + user_id + '.json', headers=self.headers, params=params).json()
+        else:
+            user_id = requests.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name, headers=self.headers).json()["id_str"]
+            response = requests.get('https://api.twitter.com/2/timeline/profile/' + user_id + '.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def trend(self):
+        response = requests.get('https://twitter.com/i/api/2/guide.json', headers=self.headers).json()
+
+        return response
+
+    def searchbox(self, text):
+        params = (
+            ('q', text),
+            ('src', 'search_box'),
+        )
+        response = requests.get('https://twitter.com/i/api/1.1/search/typeahead.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def topic_search(self, text):
+        params = (
+            ('q', text),
+            ('tweet_search_mode', 'extended'),
+        )
+        response = requests.get('https://twitter.com/i/api/2/search/adaptive.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def latest_search(self, text):
+        params = (
+            ('q', text),
+            ('tweet_search_mode', 'live'),
+        )
+        response = requests.get('https://twitter.com/i/api/2/search/adaptive.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def image_search(self, text):
+        params = (
+            ('q', text),
+            ('tweet_mode', 'extended'),
+            ('result_filter', 'image'),
+        )
+        response = requests.get('https://twitter.com/i/api/2/search/adaptive.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def video_search(self, text):
+        params = (
+            ('q', text),
+            ('tweet_mode', 'extended'),
+            ('result_filter', 'video'),
+        )
+        response = requests.get('https://twitter.com/i/api/2/search/adaptive.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def user_search(self, text):
+        params = (
+            ('q', text),
+            ('tweet_mode', 'extended'),
+            ('result_filter', 'user'),
+        )
+        response = requests.get('https://twitter.com/i/api/2/search/adaptive.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def screenname_available(self, id):
+        params = (
+            ('username', id),
+        )
+        response = requests.get('https://twitter.com/i/api/i/users/username_available.json', headers=self.headers, params=params).json()
+
+        return response
+
+    def get_status(self, tweetid):
+        response = requests.get('https://api.twitter.com/2/timeline/conversation/' + tweetid + '.json', headers=self.headers).json()
+
+        return response
+
 
     def update_status(self, text, conversation_control=None, in_reply_to_status_id=None, card_uri=None):
          if in_reply_to_status_id == None:
@@ -736,5 +1003,146 @@ class API(object):
             self.headers["cookie"] = cookie
 
             response = requests.get('https://twitter.com/i/api/1.1/account/personalization/p13n_data.json', headers=self.headers).json()
+
+        return response
+
+    def shadowban_check(self, screen_name=None, user_id=None):
+        if not screen_name == None:
+            no_tweet = False
+            protect = False
+
+            suspend = False
+            not_found = False
+
+            search_ban = False
+            search_suggestion_ban = False
+            ghost_ban = False
+            reply_deboosting = False
+
+            adaptive = requests.get("https://api.twitter.com/2/search/adaptive.json?q=from:" + screen_name + "&count=20&spelling_corrections=0", headers=self.headers)
+            typeahead = requests.get("https://api.twitter.com/1.1/search/typeahead.json?src=search_box&result_type=users&q=" + screen_name, headers=self.headers)
+            show = requests.get("https://api.twitter.com/1.1/users/show.json?screen_name=" + screen_name, headers=self.headers)
+
+            if "errors" in show.json():
+                if show.json()["errors"][0]["code"] == 63:
+                    suspend = True
+                elif show.json()["errors"][0]["code"] == 50:
+                    not_found = True
+
+            else:
+                if show.json()["protected"] == False:
+                    if "status" in show.json():
+                        profile = requests.get("https://api.twitter.com/2/timeline/profile/" + str(show.json()["id"]) +".json?include_tweet_replies=1&include_want_retweets=0&include_reply_count=1&count=1000", headers=self.headers)
+
+                        if adaptive.json()['globalObjects']['tweets']:
+                            pass
+                        else:
+                            search_ban = True
+
+                        if typeahead.json()["num_results"] == 0:
+                            search_suggestion_ban = True
+
+                        for i in profile.json()["globalObjects"]["tweets"]:
+                            for _ in profile.json()["globalObjects"]["tweets"][i]:
+                                if _ == "in_reply_to_status_id_str":
+                                    conversation = requests.get("https://api.twitter.com/2/timeline/conversation/" + str(profile.json()["globalObjects"]["tweets"][i]["in_reply_to_status_id_str"]) + ".json?include_reply_count=1&send_error_codes=true&count=20", headers=self.headers)
+                                    if conversation.status_code == 404:
+                                        ghost_ban = True
+                                        reply_deboosting = True
+                                    else:
+                                        deboosting_l = []
+                                        for i in conversation.json()["globalObjects"]["tweets"]:
+                                            deboosting_l.append(conversation.json()["globalObjects"]["tweets"][i]["user_id_str"])
+                                        if str(show.json()["id"]) in deboosting_l:
+                                            pass
+                                        else:
+                                            reply_deboosting = True
+                                    break
+                            else:
+                                continue
+                            break
+
+                    else:
+                        no_tweet = True
+                else:
+                    protect = True
+
+        elif not user_id == None:
+
+            screen_name = requests.get('https://api.twitter.com/1.1/users/show.json?user_id=' + user_id, headers=self.headers).json()["screen_name"]
+
+            no_tweet = False
+            protect = False
+
+            suspend = False
+            not_found = False
+
+            search_ban = False
+            search_suggestion_ban = False
+            ghost_ban = False
+            reply_deboosting = False
+
+            adaptive = requests.get("https://api.twitter.com/2/search/adaptive.json?q=from:" + screen_name + "&count=20&spelling_corrections=0", headers=self.headers)
+            typeahead = requests.get("https://api.twitter.com/1.1/search/typeahead.json?src=search_box&result_type=users&q=" + screen_name, headers=self.headers)
+            show = requests.get("https://api.twitter.com/1.1/users/show.json?screen_name=" + screen_name, headers=self.headers)
+
+            if "errors" in show.json():
+                if show.json()["errors"][0]["code"] == 63:
+                    suspend = True
+                elif show.json()["errors"][0]["code"] == 50:
+                    not_found = True
+
+            else:
+                if show.json()["protected"] == False:
+                    if "status" in show.json():
+                        profile = requests.get("https://api.twitter.com/2/timeline/profile/" + str(show.json()["id"]) +".json?include_tweet_replies=1&include_want_retweets=0&include_reply_count=1&count=1000", headers=self.headers)
+
+                        if adaptive.json()['globalObjects']['tweets']:
+                            pass
+                        else:
+                            search_ban = True
+
+                        if typeahead.json()["num_results"] == 0:
+                            search_suggestion_ban = True
+
+                        for i in profile.json()["globalObjects"]["tweets"]:
+                            for _ in profile.json()["globalObjects"]["tweets"][i]:
+                                if _ == "in_reply_to_status_id_str":
+                                    conversation = requests.get("https://api.twitter.com/2/timeline/conversation/" + str(profile.json()["globalObjects"]["tweets"][i]["in_reply_to_status_id_str"]) + ".json?include_reply_count=1&send_error_codes=true&count=20", headers=self.headers)
+                                    if conversation.status_code == 404:
+                                        ghost_ban = True
+                                        reply_deboosting = True
+                                    else:
+                                        deboosting_l = []
+                                        for i in conversation.json()["globalObjects"]["tweets"]:
+                                            deboosting_l.append(conversation.json()["globalObjects"]["tweets"][i]["user_id_str"])
+                                        if str(show.json()["id"]) in deboosting_l:
+                                            pass
+                                        else:
+                                            reply_deboosting = True
+                                    break
+                            else:
+                                continue
+                            break
+
+                    else:
+                        no_tweet = True
+                else:
+                    protect = True
+
+        else:
+            raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
+
+        return {'no_tweet':no_tweet, 'protect':protect, 'suspend':suspend, 'not_found':not_found, 'search_ban':search_ban, 'search_suggestion_ban':search_suggestion_ban, 'ghost_ban':ghost_ban, 'reply_deboosting':reply_deboosting}
+
+    def change_password(self, old, new):
+
+        data = {
+          'current_password': old,
+          'password': new,
+          'password_confirmation': new
+        }
+
+        response = requests.post('https://twitter.com/i/api/i/account/change_password.json', headers=self.headers, data=data).json()
 
         return response

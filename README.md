@@ -2,8 +2,8 @@
 
 Get information using a front-end API that does not require a Twitter site login.
 
-![Python 3.8](https://img.shields.io/badge/-Python%203.8-3776AB.svg?logo=python&style=plastic)
-[![Release](https://img.shields.io/badge/-Release%201.0.4-00979D.svg?logo=release&style=plastic)](https://github.com/KohnoseLami/Twitter_Frontend_API/releases)
+![Python 3.9](https://img.shields.io/badge/-Python%203.9-3776AB.svg?logo=python&style=plastic)
+[![Release](https://img.shields.io/badge/-Release%201.1.1-00979D.svg?logo=release&style=plastic)](https://github.com/KohnoseLami/Twitter_Frontend_API/releases)
 
 ## Overview
 
@@ -48,9 +48,37 @@ from Twitter_Frontend_API import Client
 
 api = Client()
 
+print(client.generate_ct0())
+print(client.generate_authenticity())
+print(client.generate_token())
+print(client.user_info(screen_name="Twitter")) #print(api.user_info(user_id="783214"))
+print(client.user_tweets(screen_name="Twitter")) #print(api.user_tweets(user_id="783214"))
+print(client.trend())
+print(client.searchbox("Text"))
+print(client.topic_search("Text"))
+print(client.latest_search("Text"))
+print(client.image_search("Text"))
+print(client.video_search("Text"))
+print(client.user_search("Text"))
+print(client.screenname_available("Screenname"))
+print(client.get_status("1335886771968741377"))
+print(client.shadowban_check(screen_name="Twitter")) #print(api.shadowban_check(user_id="783214"))
+```
+
+```python
+from Twitter_Frontend_API import API
+
+auth = {'auth_token': '----------------------------------------', 'ct0': '--------------------------------'}
+auth = API.Login("Twitter", "Password")
+print(auth)
+
+api = API(auth)
+
+print(api.generate_ct0())
+print(api.generate_authenticity())
 print(api.generate_token())
-print(api.user_info(screenname="Twitter")) #print(api.user_info(userid="783214"))
-print(api.user_tweets(screenname="Twitter")) #print(api.user_tweets(userid="783214"))
+print(api.user_info(screen_name="Twitter")) #print(api.user_info(user_id="783214"))
+print(api.user_tweets(screen_name="Twitter")) #print(api.user_tweets(user_id="783214"))
 print(api.trend())
 print(api.searchbox("Text"))
 print(api.topic_search("Text"))
@@ -59,13 +87,7 @@ print(api.image_search("Text"))
 print(api.video_search("Text"))
 print(api.user_search("Text"))
 print(api.screenname_available("Screenname"))
-```
-
-```python
-from Twitter_Frontend_API import API
-
-api = API(auth)
-
+print(api.get_status("1335886771968741377"))
 print(api.update_status("Text"))
 print(api.update_status("Text", conversation_control=2, in_reply_to_status_id="1335886771968741377", card_uri="card://1338528317587124224"))
 print(api.destroy_status("1335886771968741377"))
@@ -109,6 +131,8 @@ print(api.geo_delete())
 print(api.display_sensitive_media("true"))
 print(api.twitter_interests())
 print(api.set_explore("true"))
+print(api.shadowban_check(screen_name="Twitter")) #print(api.shadowban_check(user_id="783214"))
+print(api.change_password("old_password", "new_password"))
 ```
 
 ## Donate

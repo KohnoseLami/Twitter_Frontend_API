@@ -4,8 +4,8 @@ with open('requirements.txt') as requirements:
 
 setup(
     name='Twitter_Frontend_API',
-    version='1.0.4',
-    description='Get information from Twitter using the front-end API built into the Twitter website.',
+    version='1.1.1',
+    description='Get information from Twitter and work with your account using the front-end API built into the Twitter website.',
     url='https://github.com/KohnoseLami/Twitter_Frontend_API',
     author='神瀬来未',
     author_email='info@vxxx.cf',

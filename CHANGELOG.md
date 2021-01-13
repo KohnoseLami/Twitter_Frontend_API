@@ -1,3 +1,9 @@
+## 1.1.0
+
+Now you can perform more extensive account operations and retrieve information than the last update.
+
+- You can now change your password and check the shadowban status.
+
 ## 1.0.4
 
 You can now work with accounts.
