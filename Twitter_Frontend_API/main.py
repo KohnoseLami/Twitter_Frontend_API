@@ -593,7 +593,7 @@ class API(object):
         return response
     
     def delete_dm(self, conversation_id_1=None, conversation_id_2=None):
-        response = requests.post('post https://twitter.com/i/api/1.1/dm/conversation/' + conversation_id_1 + '-' + conversation_id_2 + '/delete.json', headers=self.headers).json()
+        response = requests.post('post https://twitter.com/i/api/1.1/dm/conversation/' + int(conversation_id_1) + '-' + int(conversation_id_2) + '/delete.json', headers=self.headers).json()
         return response
 
     def destroy_status(self, id):
