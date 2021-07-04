@@ -562,6 +562,39 @@ class API(object):
                      response = requests.post('https://twitter.com/i/api/1.1/statuses/update.json', headers=self.headers, data=data).json()
 
          return response
+    
+    def get_dm(self):
+
+        response = requests.get('https://twitter.com/i/api/1.1/dm/inbox_initial_state.json', headers=self.headers).json()
+
+        return response
+    
+    def send_dm(self, text, screen_name=None, user_id=None):
+        if screen_name == None:
+            if user_id == None:
+                raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
+            else:
+                data = {
+                  'recipient_ids': user_id
+                  'text': text
+                }
+
+                response = requests.post('https://twitter.com/i/api/1.1/dm/new.json', headers=self.headers, data=data).json()
+
+        else:
+            response = requests.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name, headers=self.headers).json()
+            data = {
+                'recipient_ids': response['id']
+                'text': text
+            }
+
+            response = requests.post('https://twitter.com/i/api/1.1/dm/new.json', headers=self.headers, data=data).json()
+
+        return response
+    
+    def delete_dm(self, conversation_id):
+        response = requests.post('post https://twitter.com/i/api/1.1/dm/conversation/' + conversation_id + '/delete.json', headers=self.headers).json()
+        return response
 
     def destroy_status(self, id):
          data = {
