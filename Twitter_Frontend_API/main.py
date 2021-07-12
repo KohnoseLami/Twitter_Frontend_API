@@ -575,7 +575,7 @@ class API(object):
                 raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
             else:
                 data = {
-                  'recipient_ids': user_id
+                  'recipient_ids': user_id,
                   'text': text
                 }
 
@@ -584,7 +584,7 @@ class API(object):
         else:
             response = requests.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name, headers=self.headers).json()
             data = {
-                'recipient_ids': response['id']
+                'recipient_ids': response['id'],
                 'text': text
             }
 
