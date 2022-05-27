@@ -164,6 +164,22 @@ class Client:
         return response
 
 
+    def geo_search(self, query, granularity=None, accuracy=None, max_results=None, contained_within=None, attribute_street_address=None):
+        url = 'https://api.twitter.com/1.1/geo/search.json?query=' + query
+        if granularity != None:
+            url = url + '&granularity=' + granularity
+        if accuracy != None:
+            url = url + '&accuracy=' + accuracy
+        if max_results != None:
+            url = url + '&max_results=' + max_results
+        if contained_within != None:
+            url = url + '&contained_within=' + contained_within
+        if attribute_street_address != None:
+            url = url + '&attribute_street_address=' + attribute_street_address
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
     ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):
