@@ -30,7 +30,8 @@ from main import Client
 # res = Client().trends_place("1110809")
 # res = Client().users_lookup(["_SNQ", "Shadow_Ban_Bot"])
 # res = Client().users_search("_SNQ")
+# res = Client().user_show("_SNQ")
 
-res = Client().users_search("_SNQ")
+res = Client().user_show("_SNQ")
 
 print(res)

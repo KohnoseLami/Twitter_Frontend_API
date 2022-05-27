@@ -431,6 +431,15 @@ class Client:
 
 
 
+    def user_show(self, screen_name, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response       
+
+
+
 
 
     ### ↑ ここまで ↑ ###
