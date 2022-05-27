@@ -333,6 +333,15 @@ class Client:
 
 
 
+    def statuses_retweets(self, id, count=None, trim_user=None):
+        url = 'https://api.twitter.com/1.1/statuses/retweets/' + id + '.json'
+        if count != None:
+            url = url + '&count=' + count
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        response = requests.get(url, headers=self.headers).json()
+        return response  
+
 
     ### ↑ ここまで ↑ ###
 
