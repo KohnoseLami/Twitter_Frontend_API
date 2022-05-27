@@ -231,6 +231,27 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
+
+    def lists_statuses(self, list_id, since_id=None, max_id=None, count=None, include_entities=None, include_rts=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/lists/statuses.json?list_id=' + list_id
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if count != None:
+            url = url + '&count=' + count
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if include_rts != None:
+            url = url + '&include_rts=' + include_rts
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+        
+              
+
     ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):
