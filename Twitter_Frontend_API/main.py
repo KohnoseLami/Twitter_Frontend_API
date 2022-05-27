@@ -140,6 +140,11 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
+    def friendships_show(self, source_screen_name, target_screen_name):
+        url = 'https://api.twitter.com/1.1/friendships/show.json?source_screen_name=' + source_screen_name + '&target_screen_name=' + target_screen_name
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
 
     ### ↑ ここまで ↑ ###
 

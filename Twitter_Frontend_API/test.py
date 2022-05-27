@@ -7,8 +7,8 @@ from main import Client
 # res = Client().followers_list("_SNQ")
 # res = Client().friends_ids("_SNQ")
 # res = Client().friends_list("_SNQ")
+# res = Client().friendships_show("_SNQ", "Shadow_Ban_Bot")
 
-
-res = Client().friends_list("_SNQ")
+res = Client().friendships_show("_SNQ", "Shadow_Ban_Bot")
 
 print(res)
