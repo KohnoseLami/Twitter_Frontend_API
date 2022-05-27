@@ -150,7 +150,18 @@ class Client:
         url = 'https://api.twitter.com/1.1/geo/id/' + place_id + '.json'
         response = requests.get(url, headers=self.headers).json()
         return response
-    
+
+
+    def geo_reverse_geocode(self, lat, long, accuracy=None, granularity=None, max_results=None):
+        url = 'https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=' + lat + '&long=' + long
+        if accuracy != None:
+            url = url + '&accuracy=' + accuracy
+        if granularity != None:
+            url = url + '&granularity=' + granularity
+        if max_results != None:
+            url = url + '&max_results=' + max_results
+        response = requests.get(url, headers=self.headers).json()
+        return response
 
 
     ### ↑ ここまで ↑ ###
