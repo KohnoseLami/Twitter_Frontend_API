@@ -48,60 +48,41 @@ class Client:
 
         return response
 
+    ### ↓ ここから ↓ ###
 
-    # パラメーター
-    # resources:
-    #     - lists
-    #     - application
-    #     - guest
-    #     - mutes
-    #     - admin_users
-    #     - friendships
-    #     - guide
-    #     - compliance
-    #     - tfb
-    #     - geo
-    #     - promoted_content
-    #     - users
-    #     - teams
-    #     - followers
-    #     - permissions
-    #     - tweets&POST
-    #     - statuses
-    #     - custom_profiles
-    #     - webhooks
-    #     - labs
-    #     - i
-    #     - moments
-    #     - help
-    #     - ads
-    #     - graphql&POST
-    #     - discover
-    #     - friends
-    #     - sandbox
-    #     - timeline
-    #     - traffic
-    #     - strato
-    #     - timelines
-    #     - account_activity
-    #     - account
-    #     - alerts
-    #     - mob_idsync_generate
-    #     - favorites
-    #     - notifications
-    #     - lists&POST
-    #     - device
-    #     - tweets
-    #     - search
-    #     - trends
-    #     - live_pipeline
-    #     - graphql
     def rate_limit_status(self, resources=None):
-        if resources == None:
-            response = requests.get('https://api.twitter.com/1.1/application/rate_limit_status.json', headers=self.headers).json()
-        else:
-            response = requests.get('https://api.twitter.com/1.1/application/rate_limit_status.json?resources=' + resources, headers=self.headers).json()
+        url = 'https://api.twitter.com/1.1/application/rate_limit_status.json'
+        if resources != None:
+            url = url + '?resources=' + resources
+        response = requests.get(url, headers=self.headers).json()
         return response
+
+    def collections_entries(self, id, count=None, max_position=None, min_position=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/collections/entries.json?id=' + id
+        if count != None:
+            url = url + '&count=' + count
+        if max_position != None:
+            url = url + '&max_position=' + max_position
+        if min_position != None:
+            url = url + '&min_position=' + min_position
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def user_info(self, screen_name=None, user_id=None):
         if screen_name == None:
