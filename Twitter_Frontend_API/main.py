@@ -278,6 +278,31 @@ class Client:
         return response
 
 
+    def search_tweets(self, q, geocode=None, lang=None, locale=None, result_type=None, count=None, until=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + q
+        if geocode != None:
+            url = url + '&geocode=' + geocode
+        if lang != None:
+            url = url + '&lang=' + lang
+        if locale != None:
+            url = url + '&locale=' + locale
+        if result_type != None:
+            url = url + '&result_type=' + result_type
+        if count != None:
+            url = url + '&count=' + count
+        if until != None:
+            url = url + '&until=' + until
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
 
     ### ↑ ここまで ↑ ###
 
