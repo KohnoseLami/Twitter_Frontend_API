@@ -146,6 +146,13 @@ class Client:
         return response
 
 
+    def geo_id(self, place_id):
+        url = 'https://api.twitter.com/1.1/geo/id/' + place_id + '.json'
+        response = requests.get(url, headers=self.headers).json()
+        return response
+    
+
+
     ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):

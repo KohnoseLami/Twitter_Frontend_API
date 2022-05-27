@@ -8,7 +8,8 @@ from main import Client
 # res = Client().friends_ids("_SNQ")
 # res = Client().friends_list("_SNQ")
 # res = Client().friendships_show("_SNQ", "Shadow_Ban_Bot")
+# res = Client().geo_id("06ef846bfc783874")
 
-res = Client().friendships_show("_SNQ", "Shadow_Ban_Bot")
+res = Client().geo_id("06ef846bfc783874")
 
 print(res)
