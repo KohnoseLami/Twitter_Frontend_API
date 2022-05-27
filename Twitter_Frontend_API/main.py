@@ -226,7 +226,10 @@ class Client:
         return response     
 
 
-
+    def lists_show(self, list_id):
+        url = 'https://api.twitter.com/1.1/lists/show.json?list_id=' + list_id
+        response = requests.get(url, headers=self.headers).json()
+        return response
 
     ### ↑ ここまで ↑ ###
 
