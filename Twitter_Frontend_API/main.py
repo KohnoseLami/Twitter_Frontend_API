@@ -340,7 +340,23 @@ class Client:
         if trim_user != None:
             url = url + '&trim_user=' + trim_user
         response = requests.get(url, headers=self.headers).json()
-        return response  
+        return response
+
+
+
+    def statuses_show(self, id, trim_user=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/statuses/show.json?id=' + id
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response        
+
+
+
 
 
     ### ↑ ここまで ↑ ###

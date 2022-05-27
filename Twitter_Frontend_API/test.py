@@ -23,7 +23,8 @@ from main import Client
 # res = Client().statuses_lookup(["1488101267243429889", "1516619027288043521"])
 # res = Client().statuses_retweeters_ids("1488101267243429889")
 # res = Client().statuses_retweets("1488101267243429889")
+# res = Client().statuses_show("1488101267243429889")
 
-res = Client().statuses_retweets("1488101267243429889")
+res = Client().statuses_show("1488101267243429889")
 
 print(res)
