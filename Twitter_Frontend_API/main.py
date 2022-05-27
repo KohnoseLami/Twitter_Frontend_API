@@ -114,6 +114,17 @@ class Client:
         return response
 
 
+    def friends_ids(self, screen_name, cursor=None, stringify_ids=None, count=None):
+        url = 'https://api.twitter.com/1.1/friends/ids.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if stringify_ids != None:
+            url = url + '&stringify_ids=' + stringify_ids
+        if count != None:
+            url = url + '&count=' + count
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
 
     ### ↑ ここまで ↑ ###
 
