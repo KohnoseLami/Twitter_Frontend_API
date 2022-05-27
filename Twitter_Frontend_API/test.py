@@ -25,7 +25,9 @@ from main import Client
 # res = Client().statuses_retweets("1488101267243429889")
 # res = Client().statuses_show("1488101267243429889")
 # res = Client().statuses_user_timeline("_SNQ")
+# res = Client().trends_available()
+# res = Client().trends_closest("35.79449997305192", "139.79078800000002")
 
-res = Client().statuses_user_timeline("_SNQ")
+res = Client().trends_closest("35.79449997305192", "139.79078800000002")
 
 print(res)

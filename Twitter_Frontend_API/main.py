@@ -381,6 +381,20 @@ class Client:
         return response
 
 
+    def trends_available(self):
+        url = 'https://api.twitter.com/1.1/trends/available.json'
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    
+    def trends_closest(self, lat, long):
+        url = 'https://api.twitter.com/1.1/trends/closest.json?lat=' + lat + '&long=' + long
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
+
+
 
 
     ### ↑ ここまで ↑ ###
