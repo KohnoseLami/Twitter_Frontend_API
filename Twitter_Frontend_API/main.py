@@ -416,6 +416,21 @@ class Client:
 
 
 
+    def users_search(self, q, page=None, count=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/users/search.json?q=' + q
+        if page != None:
+            url = url + '&page=' + page
+        if count != None:
+            url = url + '&count=' + count
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
+
 
 
     ### ↑ ここまで ↑ ###
