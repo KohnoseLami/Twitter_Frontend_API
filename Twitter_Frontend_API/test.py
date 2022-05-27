@@ -12,7 +12,8 @@ from main import Client
 # res = Client().geo_reverse_geocode("35.79449997305192", "139.79078800000002")
 # res = Client().geo_search("Tokyo")
 # res = Client().lists_list("_SNQ")
+# res = Client().lists_members("1517792406514839552")
 
-res = Client().lists_list("_SNQ")
+res = Client().lists_members("1517792406514839552")
 
 print(res)

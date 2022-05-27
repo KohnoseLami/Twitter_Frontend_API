@@ -189,6 +189,22 @@ class Client:
         return response
 
 
+    def lists_members(self, list_id, count=None, cursor=None, include_entities=None, skip_status=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/lists/members.json?list_id=' + list_id
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
 
 
     ### ↑ ここまで ↑ ###
