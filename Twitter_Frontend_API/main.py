@@ -180,6 +180,17 @@ class Client:
         return response
 
 
+
+    def lists_list(self, screen_name, reverse=None):
+        url = 'https://api.twitter.com/1.1/lists/list.json?screen_name=' + screen_name
+        if reverse != None:
+            url = url + '&reverse=' + reverse
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
+
+
     ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):
