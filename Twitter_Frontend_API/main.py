@@ -353,8 +353,32 @@ class Client:
         if tweet_mode != None:
             url = url + '&tweet_mode=' + tweet_mode
         response = requests.get(url, headers=self.headers).json()
-        return response        
+        return response
 
+
+
+    def statuses_user_timeline(self, screen_name, since_id=None, max_id=None, count=None, trim_user=None, exclude_replies=None, contributor_details=None, include_rts=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' + screen_name
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if count != None:
+            url = url + '&count=' + count
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        if exclude_replies != None:
+            url = url + '&exclude_replies=' + exclude_replies
+        if contributor_details != None:
+            url = url + '&contributor_details=' + contributor_details
+        if include_rts != None:
+            url = url + '&include_rts=' + include_rts
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
 
 
 

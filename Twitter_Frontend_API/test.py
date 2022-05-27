@@ -24,7 +24,8 @@ from main import Client
 # res = Client().statuses_retweeters_ids("1488101267243429889")
 # res = Client().statuses_retweets("1488101267243429889")
 # res = Client().statuses_show("1488101267243429889")
+# res = Client().statuses_user_timeline("_SNQ")
 
-res = Client().statuses_show("1488101267243429889")
+res = Client().statuses_user_timeline("_SNQ")
 
 print(res)
