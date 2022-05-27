@@ -13,7 +13,8 @@ from main import Client
 # res = Client().geo_search("Tokyo")
 # res = Client().lists_list("_SNQ")
 # res = Client().lists_members("1517792406514839552")
+# res = Client().lists_memberships("_SNQ")
 
-res = Client().lists_members("1517792406514839552")
+res = Client().lists_memberships("_SNQ")
 
 print(res)
