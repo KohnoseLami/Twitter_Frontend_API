@@ -20,7 +20,8 @@ from main import Client
 # res = Client().lists_subscribers("1517792406514839552")
 # res = Client().lists_subscriptions("_SNQ")
 # res = Client().search_tweets("ツイート")
+# res = Client().statuses_lookup(["1488101267243429889", "1516619027288043521"])
 
-res = Client().search_tweets("ツイート")
+res = Client().statuses_lookup(["1488101267243429889", "1516619027288043521"])
 
 print(res)

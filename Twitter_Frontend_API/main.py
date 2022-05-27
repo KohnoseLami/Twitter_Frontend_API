@@ -304,6 +304,23 @@ class Client:
         return response
 
 
+
+    def statuses_lookup(self, id, include_entities=None, trim_user=None, map=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/statuses/lookup.json'
+        if len(id) != 0:
+            url = url + '?id=' + ','.join(id)
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        if map != None:
+            url = url + '&map=' + map
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
     ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):
