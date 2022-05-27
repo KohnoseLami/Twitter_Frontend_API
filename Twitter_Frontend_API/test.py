@@ -6,8 +6,9 @@ from main import Client
 # res = Client().followers_ids("_SNQ")
 # res = Client().followers_list("_SNQ")
 # res = Client().friends_ids("_SNQ")
+# res = Client().friends_list("_SNQ")
 
 
-res = Client().friends_ids("_SNQ")
+res = Client().friends_list("_SNQ")
 
 print(res)
