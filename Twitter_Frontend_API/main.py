@@ -321,6 +321,19 @@ class Client:
         return response
 
 
+
+    def statuses_retweeters_ids(self, id, cursor=None, stringify_ids=None):
+        url = 'https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=' + id
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if stringify_ids != None:
+            url = url + '&stringify_ids=' + stringify_ids
+        response = requests.get(url, headers=self.headers).json()
+        return response       
+
+
+
+
     ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):
