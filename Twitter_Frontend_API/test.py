@@ -28,7 +28,8 @@ from main import Client
 # res = Client().trends_available()
 # res = Client().trends_closest("35.79449997305192", "139.79078800000002")
 # res = Client().trends_place("1110809")
+# res = Client().users_lookup(["_SNQ", "Shadow_Ban_Bot"])
 
-res = Client().trends_place("1110809")
+res = Client().users_lookup(["_SNQ", "Shadow_Ban_Bot"])
 
 print(res)

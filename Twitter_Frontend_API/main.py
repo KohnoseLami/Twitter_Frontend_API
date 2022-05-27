@@ -400,7 +400,21 @@ class Client:
         if exclude != None:
             url = url + '&exclude=' + exclude
         response = requests.get(url, headers=self.headers).json()
-        return response       
+        return response   
+
+
+    def users_lookup(self, screen_name, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/users/lookup.json'
+        if len(screen_name) != 0:
+            url = url + '?screen_name=' + ','.join(screen_name)
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+
 
 
 
