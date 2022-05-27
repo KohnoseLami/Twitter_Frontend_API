@@ -48,16 +48,360 @@ class Client:
 
         return response
 
-    def user_info(self, screen_name=None, user_id=None):
-        if screen_name == None:
-            if user_id == None:
-                raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
-            else:
-                response = requests.get('https://api.twitter.com/1.1/users/show.json?user_id=' + user_id, headers=self.headers).json()
-        else:
-            response = requests.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name, headers=self.headers).json()
+    ### Twitter API v1.1 ###
 
+    def rate_limit_status(self, resources=None):
+        url = 'https://api.twitter.com/1.1/application/rate_limit_status.json'
+        if resources != None:
+            url = url + '?resources=' + resources
+        response = requests.get(url, headers=self.headers).json()
         return response
+
+    def collections_entries(self, id, count=None, max_position=None, min_position=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/collections/entries.json?id=' + id
+        if count != None:
+            url = url + '&count=' + count
+        if max_position != None:
+            url = url + '&max_position=' + max_position
+        if min_position != None:
+            url = url + '&min_position=' + min_position
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def favorites_list(self, screen_name, count=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/favorites/list.json?screen_name=' + screen_name
+        if count != None:
+            url = url + '&count=' + count
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + since_id
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def followers_ids(self, screen_name, cursor=None, stringify_ids=None, count=None):
+        url = 'https://api.twitter.com/1.1/followers/ids.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if stringify_ids != None:
+            url = url + '&stringify_ids=' + stringify_ids
+        if count != None:
+            url = url + '&count=' + count
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def followers_list(self, screen_name, cursor=None, count=None, skip_status=None, include_user_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/followers/list.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if count != None:
+            url = url + '&count=' + count
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        if include_user_entities != None:
+            url = url + '&include_user_entities=' + include_user_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def friends_ids(self, screen_name, cursor=None, stringify_ids=None, count=None):
+        url = 'https://api.twitter.com/1.1/friends/ids.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if stringify_ids != None:
+            url = url + '&stringify_ids=' + stringify_ids
+        if count != None:
+            url = url + '&count=' + count
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def friends_list(self, screen_name, cursor=None, count=None, skip_status=None, include_user_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/friends/list.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if count != None:
+            url = url + '&count=' + count
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        if include_user_entities != None:
+            url = url + '&include_user_entities=' + include_user_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def friendships_show(self, source_screen_name, target_screen_name):
+        url = 'https://api.twitter.com/1.1/friendships/show.json?source_screen_name=' + source_screen_name + '&target_screen_name=' + target_screen_name
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def geo_id(self, place_id):
+        url = 'https://api.twitter.com/1.1/geo/id/' + place_id + '.json'
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def geo_reverse_geocode(self, lat, long, accuracy=None, granularity=None, max_results=None):
+        url = 'https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=' + lat + '&long=' + long
+        if accuracy != None:
+            url = url + '&accuracy=' + accuracy
+        if granularity != None:
+            url = url + '&granularity=' + granularity
+        if max_results != None:
+            url = url + '&max_results=' + max_results
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def geo_search(self, query, granularity=None, accuracy=None, max_results=None, contained_within=None, attribute_street_address=None):
+        url = 'https://api.twitter.com/1.1/geo/search.json?query=' + query
+        if granularity != None:
+            url = url + '&granularity=' + granularity
+        if accuracy != None:
+            url = url + '&accuracy=' + accuracy
+        if max_results != None:
+            url = url + '&max_results=' + max_results
+        if contained_within != None:
+            url = url + '&contained_within=' + contained_within
+        if attribute_street_address != None:
+            url = url + '&attribute_street_address=' + attribute_street_address
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_list(self, screen_name, reverse=None):
+        url = 'https://api.twitter.com/1.1/lists/list.json?screen_name=' + screen_name
+        if reverse != None:
+            url = url + '&reverse=' + reverse
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_members(self, list_id, count=None, cursor=None, include_entities=None, skip_status=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/lists/members.json?list_id=' + list_id
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_memberships(self, screen_name, count=None, cursor=None):
+        url = 'https://api.twitter.com/1.1/lists/memberships.json?screen_name=' + screen_name
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_ownerships(self, screen_name, count=None, cursor=None):
+        url = 'https://api.twitter.com/1.1/lists/ownerships.json?screen_name=' + screen_name
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        response = requests.get(url, headers=self.headers).json()
+        return response     
+
+    def lists_show(self, list_id):
+        url = 'https://api.twitter.com/1.1/lists/show.json?list_id=' + list_id
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_statuses(self, list_id, since_id=None, max_id=None, count=None, include_entities=None, include_rts=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/lists/statuses.json?list_id=' + list_id
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if count != None:
+            url = url + '&count=' + count
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if include_rts != None:
+            url = url + '&include_rts=' + include_rts
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_subscribers(self, list_id, count=None, cursor=None, include_entities=None, skip_status=None):
+        url = 'https://api.twitter.com/1.1/lists/subscribers.json?list_id=' + list_id
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def lists_subscriptions(self, screen_name, count=None, cursor=None):
+        url = 'https://api.twitter.com/1.1/lists/subscriptions.json?screen_name=' + screen_name
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        response = requests.get(url, headers=self.headers).json()
+        return response
+    
+    def search_tweets(self, q, geocode=None, lang=None, locale=None, result_type=None, count=None, until=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + q
+        if geocode != None:
+            url = url + '&geocode=' + geocode
+        if lang != None:
+            url = url + '&lang=' + lang
+        if locale != None:
+            url = url + '&locale=' + locale
+        if result_type != None:
+            url = url + '&result_type=' + result_type
+        if count != None:
+            url = url + '&count=' + count
+        if until != None:
+            url = url + '&until=' + until
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def statuses_lookup(self, id, include_entities=None, trim_user=None, map=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/statuses/lookup.json'
+        if len(id) != 0:
+            url = url + '?id=' + ','.join(id)
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        if map != None:
+            url = url + '&map=' + map
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def statuses_retweeters_ids(self, id, cursor=None, stringify_ids=None):
+        url = 'https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=' + id
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if stringify_ids != None:
+            url = url + '&stringify_ids=' + stringify_ids
+        response = requests.get(url, headers=self.headers).json()
+        return response       
+
+    def statuses_retweets(self, id, count=None, trim_user=None):
+        url = 'https://api.twitter.com/1.1/statuses/retweets/' + id + '.json'
+        if count != None:
+            url = url + '&count=' + count
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def statuses_show(self, id, trim_user=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/statuses/show.json?id=' + id
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def statuses_user_timeline(self, screen_name, since_id=None, max_id=None, count=None, trim_user=None, exclude_replies=None, contributor_details=None, include_rts=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' + screen_name
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if count != None:
+            url = url + '&count=' + count
+        if max_id != None:
+            url = url + '&max_id=' + max_id
+        if trim_user != None:
+            url = url + '&trim_user=' + trim_user
+        if exclude_replies != None:
+            url = url + '&exclude_replies=' + exclude_replies
+        if contributor_details != None:
+            url = url + '&contributor_details=' + contributor_details
+        if include_rts != None:
+            url = url + '&include_rts=' + include_rts
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def trends_available(self):
+        url = 'https://api.twitter.com/1.1/trends/available.json'
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def trends_closest(self, lat, long):
+        url = 'https://api.twitter.com/1.1/trends/closest.json?lat=' + lat + '&long=' + long
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def trends_place(self, id, exclude=None):
+        url = 'https://api.twitter.com/1.1/trends/place.json?id=' + id
+        if exclude != None:
+            url = url + '&exclude=' + exclude
+        response = requests.get(url, headers=self.headers).json()
+        return response   
+
+    def users_lookup(self, screen_name, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/users/lookup.json'
+        if len(screen_name) != 0:
+            url = url + '?screen_name=' + ','.join(screen_name)
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def users_search(self, q, page=None, count=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/users/search.json?q=' + q
+        if page != None:
+            url = url + '&page=' + page
+        if count != None:
+            url = url + '&count=' + count
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    def user_show(self, screen_name, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
+
+    ### Twitter API v2      ###
+    ### OR                  ###
+    ### Twitter API Private ###
 
     def user_tweets(self, screen_name=None, user_id=None):
         params = (
