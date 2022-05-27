@@ -70,8 +70,8 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-    def favorites_list(self, user_id, count=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
-        url = 'https://api.twitter.com/1.1/favorites/list.json?user_id=' + user_id
+    def favorites_list(self, screen_name, count=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/favorites/list.json?screen_name=' + screen_name
         if count != None:
             url = url + '&count=' + count
         if since_id != None:
@@ -86,11 +86,16 @@ class Client:
         return response
 
 
-
-
-
-
-
+    def followers_ids(self, screen_name, cursor=None, stringify_ids=None, count=None):
+        url = 'https://api.twitter.com/1.1/followers/ids.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if stringify_ids != None:
+            url = url + '&stringify_ids=' + stringify_ids
+        if count != None:
+            url = url + '&count=' + count
+        response = requests.get(url, headers=self.headers).json()
+        return response
 
 
 
