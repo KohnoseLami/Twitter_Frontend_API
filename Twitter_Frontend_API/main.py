@@ -249,8 +249,26 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-        
-              
+
+
+    def lists_subscribers(self, list_id, count=None, cursor=None, include_entities=None, skip_status=None):
+        url = 'https://api.twitter.com/1.1/lists/subscribers.json?list_id=' + list_id
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        response = requests.get(url, headers=self.headers).json()
+        return response      
+
+
+
+
 
     ### ↑ ここまで ↑ ###
 

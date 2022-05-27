@@ -17,7 +17,8 @@ from main import Client
 # res = Client().lists_ownerships("_SNQ")
 # res = Client().lists_show("1517792406514839552")
 # res = Client().lists_statuses("1517792406514839552")
+# res = Client().lists_subscribers("1517792406514839552")
 
-res = Client().lists_statuses("1517792406514839552")
+res = Client().lists_subscribers("1517792406514839552")
 
 print(res)
