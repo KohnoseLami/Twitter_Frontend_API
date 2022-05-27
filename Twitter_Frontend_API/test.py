@@ -27,7 +27,8 @@ from main import Client
 # res = Client().statuses_user_timeline("_SNQ")
 # res = Client().trends_available()
 # res = Client().trends_closest("35.79449997305192", "139.79078800000002")
+# res = Client().trends_place("1110809")
 
-res = Client().trends_closest("35.79449997305192", "139.79078800000002")
+res = Client().trends_place("1110809")
 
 print(res)

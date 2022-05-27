@@ -395,6 +395,13 @@ class Client:
 
 
 
+    def trends_place(self, id, exclude=None):
+        url = 'https://api.twitter.com/1.1/trends/place.json?id=' + id
+        if exclude != None:
+            url = url + '&exclude=' + exclude
+        response = requests.get(url, headers=self.headers).json()
+        return response       
+
 
 
     ### ↑ ここまで ↑ ###
