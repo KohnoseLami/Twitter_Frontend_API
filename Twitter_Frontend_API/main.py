@@ -70,6 +70,20 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
+    def favorites_list(self, user_id, count=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/favorites/list.json?user_id=' + user_id
+        if count != None:
+            url = url + '&count=' + count
+        if since_id != None:
+            url = url + '&since_id=' + since_id
+        if max_id != None:
+            url = url + '&max_id=' + since_id
+        if include_entities != None:
+            url = url + '&include_entities=' + include_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
 
 
 
