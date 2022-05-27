@@ -216,6 +216,16 @@ class Client:
         return response
 
 
+    def lists_ownerships(self, screen_name, count=None, cursor=None):
+        url = 'https://api.twitter.com/1.1/lists/ownerships.json?screen_name=' + screen_name
+        if count != None:
+            url = url + '&count=' + count
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        response = requests.get(url, headers=self.headers).json()
+        return response     
+
+
 
 
     ### ↑ ここまで ↑ ###

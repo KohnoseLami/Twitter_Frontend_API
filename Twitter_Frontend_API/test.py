@@ -15,6 +15,6 @@ from main import Client
 # res = Client().lists_members("1517792406514839552")
 # res = Client().lists_memberships("_SNQ")
 
-res = Client().lists_memberships("_SNQ")
+res = Client().lists_ownerships("_SNQ")
 
 print(res)
