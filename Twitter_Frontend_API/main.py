@@ -98,10 +98,24 @@ class Client:
         return response
 
 
+    def followers_list(self, screen_name, cursor=None, count=None, skip_status=None, include_user_entities=None, tweet_mode=None):
+        url = 'https://api.twitter.com/1.1/followers/list.json?screen_name=' + screen_name
+        if cursor != None:
+            url = url + '&cursor=' + cursor
+        if count != None:
+            url = url + '&count=' + count
+        if skip_status != None:
+            url = url + '&skip_status=' + skip_status
+        if include_user_entities != None:
+            url = url + '&include_user_entities=' + include_user_entities
+        if tweet_mode != None:
+            url = url + '&tweet_mode=' + tweet_mode
+        response = requests.get(url, headers=self.headers).json()
+        return response
 
 
 
-
+    ### ↑ ここまで ↑ ###
 
     def user_info(self, screen_name=None, user_id=None):
         if screen_name == None:
