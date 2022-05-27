@@ -48,7 +48,7 @@ class Client:
 
         return response
 
-    ### ↓ ここから ↓ ###
+    ### Twitter API v1.1 ###
 
     def rate_limit_status(self, resources=None):
         url = 'https://api.twitter.com/1.1/application/rate_limit_status.json'
@@ -85,7 +85,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
     def followers_ids(self, screen_name, cursor=None, stringify_ids=None, count=None):
         url = 'https://api.twitter.com/1.1/followers/ids.json?screen_name=' + screen_name
         if cursor != None:
@@ -96,7 +95,6 @@ class Client:
             url = url + '&count=' + count
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def followers_list(self, screen_name, cursor=None, count=None, skip_status=None, include_user_entities=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/followers/list.json?screen_name=' + screen_name
@@ -112,7 +110,6 @@ class Client:
             url = url + '&tweet_mode=' + tweet_mode
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def friends_ids(self, screen_name, cursor=None, stringify_ids=None, count=None):
         url = 'https://api.twitter.com/1.1/friends/ids.json?screen_name=' + screen_name
@@ -145,12 +142,10 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
     def geo_id(self, place_id):
         url = 'https://api.twitter.com/1.1/geo/id/' + place_id + '.json'
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def geo_reverse_geocode(self, lat, long, accuracy=None, granularity=None, max_results=None):
         url = 'https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=' + lat + '&long=' + long
@@ -162,7 +157,6 @@ class Client:
             url = url + '&max_results=' + max_results
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def geo_search(self, query, granularity=None, accuracy=None, max_results=None, contained_within=None, attribute_street_address=None):
         url = 'https://api.twitter.com/1.1/geo/search.json?query=' + query
@@ -179,15 +173,12 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def lists_list(self, screen_name, reverse=None):
         url = 'https://api.twitter.com/1.1/lists/list.json?screen_name=' + screen_name
         if reverse != None:
             url = url + '&reverse=' + reverse
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def lists_members(self, list_id, count=None, cursor=None, include_entities=None, skip_status=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/lists/members.json?list_id=' + list_id
@@ -204,8 +195,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def lists_memberships(self, screen_name, count=None, cursor=None):
         url = 'https://api.twitter.com/1.1/lists/memberships.json?screen_name=' + screen_name
         if count != None:
@@ -214,7 +203,6 @@ class Client:
             url = url + '&cursor=' + cursor
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def lists_ownerships(self, screen_name, count=None, cursor=None):
         url = 'https://api.twitter.com/1.1/lists/ownerships.json?screen_name=' + screen_name
@@ -225,12 +213,10 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response     
 
-
     def lists_show(self, list_id):
         url = 'https://api.twitter.com/1.1/lists/show.json?list_id=' + list_id
         response = requests.get(url, headers=self.headers).json()
         return response
-
 
     def lists_statuses(self, list_id, since_id=None, max_id=None, count=None, include_entities=None, include_rts=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/lists/statuses.json?list_id=' + list_id
@@ -249,8 +235,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def lists_subscribers(self, list_id, count=None, cursor=None, include_entities=None, skip_status=None):
         url = 'https://api.twitter.com/1.1/lists/subscribers.json?list_id=' + list_id
         if count != None:
@@ -266,8 +250,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def lists_subscriptions(self, screen_name, count=None, cursor=None):
         url = 'https://api.twitter.com/1.1/lists/subscriptions.json?screen_name=' + screen_name
         if count != None:
@@ -276,8 +258,7 @@ class Client:
             url = url + '&cursor=' + cursor
         response = requests.get(url, headers=self.headers).json()
         return response
-
-
+    
     def search_tweets(self, q, geocode=None, lang=None, locale=None, result_type=None, count=None, until=None, since_id=None, max_id=None, include_entities=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + q
         if geocode != None:
@@ -303,8 +284,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def statuses_lookup(self, id, include_entities=None, trim_user=None, map=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/statuses/lookup.json'
         if len(id) != 0:
@@ -320,8 +299,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def statuses_retweeters_ids(self, id, cursor=None, stringify_ids=None):
         url = 'https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=' + id
         if cursor != None:
@@ -331,8 +308,6 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response       
 
-
-
     def statuses_retweets(self, id, count=None, trim_user=None):
         url = 'https://api.twitter.com/1.1/statuses/retweets/' + id + '.json'
         if count != None:
@@ -341,8 +316,6 @@ class Client:
             url = url + '&trim_user=' + trim_user
         response = requests.get(url, headers=self.headers).json()
         return response
-
-
 
     def statuses_show(self, id, trim_user=None, include_entities=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/statuses/show.json?id=' + id
@@ -354,8 +327,6 @@ class Client:
             url = url + '&tweet_mode=' + tweet_mode
         response = requests.get(url, headers=self.headers).json()
         return response
-
-
 
     def statuses_user_timeline(self, screen_name, since_id=None, max_id=None, count=None, trim_user=None, exclude_replies=None, contributor_details=None, include_rts=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' + screen_name
@@ -380,20 +351,15 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
     def trends_available(self):
         url = 'https://api.twitter.com/1.1/trends/available.json'
         response = requests.get(url, headers=self.headers).json()
         return response
 
-    
     def trends_closest(self, lat, long):
         url = 'https://api.twitter.com/1.1/trends/closest.json?lat=' + lat + '&long=' + long
         response = requests.get(url, headers=self.headers).json()
         return response
-
-
-
 
     def trends_place(self, id, exclude=None):
         url = 'https://api.twitter.com/1.1/trends/place.json?id=' + id
@@ -401,7 +367,6 @@ class Client:
             url = url + '&exclude=' + exclude
         response = requests.get(url, headers=self.headers).json()
         return response   
-
 
     def users_lookup(self, screen_name, include_entities=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/users/lookup.json'
@@ -413,8 +378,6 @@ class Client:
             url = url + '&tweet_mode=' + tweet_mode
         response = requests.get(url, headers=self.headers).json()
         return response
-
-
 
     def users_search(self, q, page=None, count=None, include_entities=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/users/search.json?q=' + q
@@ -429,31 +392,16 @@ class Client:
         response = requests.get(url, headers=self.headers).json()
         return response
 
-
-
     def user_show(self, screen_name, include_entities=None, tweet_mode=None):
         url = 'https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name
         if tweet_mode != None:
             url = url + '&tweet_mode=' + tweet_mode
         response = requests.get(url, headers=self.headers).json()
-        return response       
-
-
-
-
-
-    ### ↑ ここまで ↑ ###
-
-    def user_info(self, screen_name=None, user_id=None):
-        if screen_name == None:
-            if user_id == None:
-                raise TwitterError("Neither 'screen_name' nor 'user_id' was entered.")
-            else:
-                response = requests.get('https://api.twitter.com/1.1/users/show.json?user_id=' + user_id, headers=self.headers).json()
-        else:
-            response = requests.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name, headers=self.headers).json()
-
         return response
+
+    ### Twitter API v2      ###
+    ### OR                  ###
+    ### Twitter API Private ###
 
     def user_tweets(self, screen_name=None, user_id=None):
         params = (
