@@ -1,11 +1,11 @@
 # 2023-02-03 Addendum
 This module is currently not maintained and the person who requested the pull has now quit parsing Twitter.
-I do Twitter self-bots for work, and I won't write about any further improvements or private APIs for mobile.
+I do Twitter self-bots for work, and I won't write about any further improvements or private APIs for mobile (maybe).
 
 If I were to leave some useful information here, the Twitter API v 1.1 endpoints would still all work as usual using the "auth_token" in the account credentials cookie and the TweetDeck Authorization token.
 (Bearer AAAAAAAAAAAAAAAAAAAAAF7aAAAAAAAASCiRjWvh7R5wxaKkFp7MM%2BhYBqM%3DbQ0JPmjU9F6ZoMhDfI4uTNAaQuTDm2uO9x3WFVr2xBZ2nhjdP0)
 
-The previous login program included in this module can be used to get the "auth _ token," but now logins using task.json are used.
+The previous login program included in this module can be used to get the "auth_token," but now logins using task.json are used.
 (Tip: The login API is the same for mobile and site (Why? LOL))
 (API Keys: https://gist.github.com/shobotch/5160017)
 
@@ -16,9 +16,11 @@ Also, there is now automated detection, so if you do a self-bot recklessly, your
 (Hint: Twitter barely detects in user agents, anywhere else)
 
 Automating with easy knowledge and gathered information is a high risk.
-Also, freezing is done per IP. Remember that if you automate and your account is suspended, the account of the family member you live with carries the risk of account suspension as well.
+Also, suspending is done per IP. Remember that if you automate and your account is suspended, the account of the family member you live with carries the risk of account suspension as well.
 
 Automating Twitter is currently easier than social networks like Instagram and Facebook, but with hidden risks.
+
+Telegram: KohnoseLami
 
 # Twitter Frontend API
 Get information using a front-end API that does not require a Twitter site login.
