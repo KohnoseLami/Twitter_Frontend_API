@@ -1,5 +1,3 @@
-# Twitter Frontend API
-
 # 2023-02-03 Addendum
 This module is currently not maintained and the person who requested the pull has now quit parsing Twitter.
 I do Twitter self-bots for work, and I won't write about any further improvements or private APIs for mobile.
@@ -11,7 +9,18 @@ The previous login program included in this module can be used to get the "auth 
 (Tip: The login API is the same for mobile and site (Why? LOL))
 (API Keys: https://gist.github.com/shobotch/5160017)
 
+It also now says it's mainly GraphQL, not v 1.1, but the mobile version still uses the v2 API, the GraphQL API, the v 1.1 API and, to top it off, v 1.
+For a while you will be able to run v 1.1 just by changing the Authorization key.
 
+Also, there is now automated detection, so if you do a self-bot recklessly, your account will be immediately suspended.
+(Hint: Twitter barely detects in user agents, anywhere else)
+
+Automating with easy knowledge and gathered information is a high risk.
+Also, freezing is done per IP. Remember that if you automate and your account is suspended, the account of the family member you live with carries the risk of account suspension as well.
+
+Automating Twitter is currently easier than social networks like Instagram and Facebook, but with hidden risks.
+
+# Twitter Frontend API
 Get information using a front-end API that does not require a Twitter site login.
 
 ![Python 3.9](https://img.shields.io/badge/-Python%203.9-3776AB.svg?logo=python&style=plastic)
