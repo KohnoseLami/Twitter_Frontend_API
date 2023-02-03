@@ -1,5 +1,17 @@
 # Twitter Frontend API
 
+# 2023-02-03 Addendum
+This module is currently not maintained and the person who requested the pull has now quit parsing Twitter.
+I do Twitter self-bots for work, and I won't write about any further improvements or private APIs for mobile.
+
+If I were to leave some useful information here, the Twitter API v 1.1 endpoints would still all work as usual using the "auth _ token" in the account credentials cookie and the TweetDeck Authorization token.
+(Bearer AAAAAAAAAAAAAAAAAAAAAF7aAAAAAAAASCiRjWvh7R5wxaKkFp7MM%2BhYBqM%3DbQ0JPmjU9F6ZoMhDfI4uTNAaQuTDm2uO9x3WFVr2xBZ2nhjdP0)
+
+The previous login program included in this module can be used to get the "auth _ token," but now logins using task.json are used.
+(Tip: The login API is the same for mobile and site (Why? LOL))
+(API Keys: https://gist.github.com/shobotch/5160017)
+
+
 Get information using a front-end API that does not require a Twitter site login.
 
 ![Python 3.9](https://img.shields.io/badge/-Python%203.9-3776AB.svg?logo=python&style=plastic)
